@@ -1,0 +1,44 @@
+	install kubectl
+	install minikube
+	create cluster---> run minikube start 
+	check cluster-------> kubectl cluster-info
+# for student app
+we just need the deployment and service 
+Service exposes the app to other systems to access
+LoadBalancer-> exposes the service to external systems
+ClusterIp-> the app will just be accessible within the cluster( default one to be used by K8s when you dont specify)
+NodePort
+ExternalIP
+# for mongo db
+There exists a Kubernetes resource that allows obtaining persistent storage volume: the PersistentVolumeClaim.
+This storage must not be affected by whatever happens to the MongoDB Pod.
+If the MongoDB Pod is deleted, the storage must persist — if the MongoDB Pod is moved to another node, the storage must persist.
+we need to configure:
+   PersistentVolumeClaim
+   Service
+   Deployment
+
+
+And /data/db is where MongoDB saves its data.
+It is mongodb://mongo:27017/dev.
+The hostname is mongo.
+
+
+CHECK IF CLUSTER IS UP -> minikube status
+
+you can do deployment all at once as all the yml are on the same folder -> kubectl apply -f kube
+or individual deployment -> kubectl apply student.yml    then   kubectl apply mongo.yml
+
+##################  to watch the pods
+kubectl get pods --watch
+
+####### access service and prints the url 
+minikube service student --url
+
+this is the url you should use to open in browser or postman
+
+# ### to scale deployment to 2 pods
+kubectl scale --replicas=2 deployment/student
+kubectl get pods -l app=student --watch
+minikube service student --url
+

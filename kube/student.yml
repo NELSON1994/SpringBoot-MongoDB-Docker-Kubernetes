@@ -1,0 +1,37 @@
+# ... Deployment yml definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student
+  template:
+    metadata:
+      labels:
+        app: student
+    spec:
+      containers:
+        - name: app
+          image: 07188....../studentapp-java:1.0.0
+          ports:
+            - containerPort: 3333
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo:27017/dev
+          imagePullPolicy: Always
+---
+# ... Service YML Definition
+apiVersion: v1
+kind: Service
+metadata:
+  name: student
+spec:
+  selector:
+    app: student
+  ports:
+    - port: 80
+      targetPort: 3333
+  type: LoadBalancer

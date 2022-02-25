@@ -1,6 +1,7 @@
 package com.nelson.springbootmongodockerkubernetes.controller;
 
 import com.nelson.springbootmongodockerkubernetes.configs.StudentConfigs;
+import com.nelson.springbootmongodockerkubernetes.configs.StudentProperties;
 import com.nelson.springbootmongodockerkubernetes.model.Student;
 import com.nelson.springbootmongodockerkubernetes.repository.StudentRepository;
 import org.commonmark.parser.Parser;
@@ -27,7 +28,7 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private StudentConfigs properties;
+    private StudentProperties properties;
 
     private Parser parser = Parser.builder().build();
     private HtmlRenderer renderer = HtmlRenderer.builder().build();
